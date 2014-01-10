@@ -1,4 +1,4 @@
-HieraPy
+HieraPy [![Build Status](https://travis-ci.org/ivannpaz/HieraPy.png?branch=master)](https://travis-ci.org/ivannpaz/HieraPy)
 =======
 
 Shy attempt at porting Puppet's [Hiera](https://github.com/puppetlabs/hiera) to Python as a coding excercise.
