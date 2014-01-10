@@ -8,12 +8,14 @@ def read(filen):
 
 setup (
     name = "HieraPy",
-    version = "0.0.1",
+    version = "0.0.2",
     description="Shy implementation of Puppet's Hiera configuration tool.",
     long_description=read("README.md"),
     author="Ivan N. (based on previous work by Alec Elton)",
-    author_email="",
+    author_email="ivannpaz@gmail.com",
     url="https://github.com/ivannpaz/HieraPy",
-    packages=["hierapy"],
-    install_requires=[]
+    packages=["hierapy", "tests"],
+    test_suite="nose.collector",
+    tests_require=["nose", "yaml"]
+    install_requires=["yaml"]
 )
