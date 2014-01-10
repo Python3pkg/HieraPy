@@ -1,6 +1,7 @@
 import yaml
 
-class HieraConfig(object):
+class HieraPy(object):
+
     def __init__(self, config_file, folder):
         self.__config = dict()
         base_config = self.__load(config_file)
