@@ -2,21 +2,35 @@ import yaml
 
 class HieraPy(object):
 
-    def __init__(self, config_file, folder):
+    def __init__(self, config_file, folder, lazy_load = True):
+        self.__folder = folder
+        self.__config_file = config_file
+        self.__loaded = False
         self.__config = dict()
-        base_config = self.__load(config_file)
-        for file_name in reversed(base_config[':hierarchy']):
-            self.__merge_config(file_name, folder)
+        if not lazy_load:
+            self.__load_config()
 
     def get(self, key, default=False):
         '''
         Return value for key in the config dictionary or default if none
-        found
+        found.
         '''
+        if not self.__loaded:
+            self.__load_config()
+
         if self.__config and key in self.__config:
             return self.__config[key]
         else:
             return default
+
+    def __load_config(self):
+        '''
+        Read all configuration files into memory
+        '''
+        base_config = self.__load(self.__config_file)
+        for file_name in reversed(base_config[':hierarchy']):
+            self.__merge_config(file_name, self.__folder)
+        self.__loaded = True
 
     def __load(self, file_name):
         '''
