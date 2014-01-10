@@ -1,8 +1,11 @@
-import sys, os
+import sys
+import os
+
 from chai import Chai
-from hierapy import HieraPy
 
 sys.path.insert(1, os.path.dirname(os.path.dirname(__file__)))
+
+from hierapy import HieraPy
 
 single_config = {
     ':hierarchy': ['base'],
