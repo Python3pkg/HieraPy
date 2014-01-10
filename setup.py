@@ -16,6 +16,6 @@ setup (
     url="https://github.com/ivannpaz/HieraPy",
     packages=["hierapy", "tests"],
     test_suite="nose.collector",
-    tests_require=["nose", "yaml"],
+    tests_require=["nose", "chai"],
     install_requires=["yaml"]
 )
