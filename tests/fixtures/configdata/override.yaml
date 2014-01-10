@@ -1,3 +1,6 @@
 user:
     login: 'username'
     password: 'overridden-password'
+
+extra:
+    value: 'only-in-set-1'
