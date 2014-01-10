@@ -4,7 +4,6 @@ from hierapy import HieraPy
 
 sys.path.insert(1, os.path.dirname(os.path.dirname(__file__)))
 
-
 single_config = {
     ':hierarchy': ['base'],
 }
