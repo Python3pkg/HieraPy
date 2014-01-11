@@ -8,7 +8,7 @@ def read(filen):
 
 setup (
     name = "HieraPy",
-    version = "0.0.2",
+    version = "0.0.3",
     description="Shy implementation of Puppet's Hiera configuration tool.",
     long_description=read("README.md"),
     author="Ivan N. (based on previous work by Alec Elton)",
