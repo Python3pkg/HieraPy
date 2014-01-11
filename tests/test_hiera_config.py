@@ -26,40 +26,40 @@ config_override = {
 class TestHieraConfig(Chai):
 
     def test_getWithSingleConfig(self):
-        loader = mock()
-        expect(loader).args('single.yaml').returns(single_config)
-        expect(loader).args('folder/base.yaml').returns(config_base)
-
-        config = HieraPy('single.yaml', 'folder')
-        config._HieraPy__load = loader
-
+        config = self._get_mocked_config(
+            HieraPy('single.yaml', 'folder')
+        )
         assert_equals('username', config.get('login'))
         assert_equals('secret', config.get('password'))
         assert_false(config.get('extra'))
 
     def test_getWithOverriddenConfig(self):
-        loader = mock()
-        expect(loader).args('overriden.yaml').returns(overriden_config)
-        expect(loader).args('folder/base.yaml').returns(config_base)
-        expect(loader).args('folder/override.yaml').returns(config_override)
-
-        config = HieraPy('overriden.yaml', 'folder')
-        config._HieraPy__load = loader
-
+        config = self._get_mocked_config(
+            HieraPy('overriden.yaml', 'folder'),
+            True
+        )
         assert_equals('username', config.get('login'))
         assert_equals('overridden', config.get('password'))
         assert_equals('extra-value', config.get('extra'))
 
     def test_getGetDefaultValues(self):
-        loader = mock()
-        expect(loader).args('single.yaml').returns(single_config)
-        expect(loader).args('folder/base.yaml').returns(config_base)
-
-        config = HieraPy('single.yaml', 'folder')
-        config._HieraPy__load = loader
-
+        config = self._get_mocked_config(
+            HieraPy('single.yaml', 'folder')
+        )
         assert_false(config.get('non-existent'))
         assert_equals('expected-default', config.get('non-existent', 'expected-default'))
+
+    def _get_mocked_config(self, config, include_override = False):
+        loader = mock()
+        if include_override:
+            expect(loader).args('overriden.yaml').returns(overriden_config)
+            expect(loader).args('folder/base.yaml').returns(config_base)
+            expect(loader).args('folder/override.yaml').returns(config_override)
+        else:
+            expect(loader).args('single.yaml').returns(single_config)
+            expect(loader).args('folder/base.yaml').returns(config_base)
+        config._HieraPy__load = loader
+        return config
 
 if __name__ == '__main__':
     import unittest2
