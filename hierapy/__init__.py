@@ -29,12 +29,6 @@ class HieraPy(object):
         else:
             return conf
 
-    def __read_key(self, obj, default=False):
-        '''
-        Return value for given key in object or default if non-existent
-        '''
-
-
     def __load_config(self):
         '''
         Read all configuration files into memory
