@@ -18,10 +18,22 @@ class HieraPy(object):
         if not self.__loaded:
             self.__load_config()
 
-        if self.__config and key in self.__config:
-            return self.__config[key]
-        else:
+        conf = self.__config
+        for part in key.split("/"):
+            if conf and part in conf:
+                conf = conf[part]
+            else:
+                conf = None
+        if conf is None:
             return default
+        else:
+            return conf
+
+    def __read_key(self, obj, default=False):
+        '''
+        Return value for given key in object or default if non-existent
+        '''
+
 
     def __load_config(self):
         '''
@@ -48,7 +60,7 @@ class HieraPy(object):
 
     def __merged(self, *args):
         '''
-        Merge recursively two dictionaries and return the result.
+        Merge recursively two dictionaries.
         '''
         out = dict()
         def merge_dict(a, b):

@@ -16,11 +16,23 @@ overriden_config = {
 config_base = {
     'login': 'username',
     'password': 'secret',
+    'deep': {
+        'inner': 'deep-value',
+        'way-deeper': {
+            'most' : [
+                'assorted',
+                'values',
+            ]
+        },
+    },
 }
 config_override = {
     'login': 'username',
     'password': 'overridden',
     'extra': 'extra-value',
+    'deep': {
+        'inner': 'other-deep-value',
+    },
 }
 
 class TestHieraConfig(Chai):
@@ -47,7 +59,19 @@ class TestHieraConfig(Chai):
             HieraPy('single.yaml', 'folder')
         )
         assert_false(config.get('non-existent'))
-        assert_equals('expected-default', config.get('non-existent', 'expected-default'))
+        assert_equals(
+            'expected-default',
+            config.get('non-existent', 'expected-default')
+        )
+
+    def test_getGetDeepValues(self):
+        config = self._get_mocked_config(
+            HieraPy('single.yaml', 'folder')
+        )
+        assert_equals('deep-value', config.get('deep/inner'))
+        assert_equals(
+            ['assorted', 'values'],
+            config.get('deep/way-deeper/most'))
 
     def _get_mocked_config(self, config, include_override = False):
         loader = mock()
