@@ -59,7 +59,7 @@ class HieraPy(object):
         out = dict()
         def merge_dict(a, b):
             out = a.copy()
-            for k, v in b.items():
+            for k, v in list(b.items()):
                 if k in out:
                     if isinstance(v, dict):
                         out[k] = merge_dict(out[k], v)
